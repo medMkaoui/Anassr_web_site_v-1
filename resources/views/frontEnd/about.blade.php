@@ -93,7 +93,7 @@
       <div class="rejoin">
         <h1 class="sec2_title">Rejoignez-nous</h1>
         <h4 class="sec2_Suntitle">Être l'un d'entre nous</h4>
-        <a class="about_link link_rejoin" href="">Rejoignez-nous</a>
+        <a class="about_link link_rejoin" href="{{route('getInsc')}}">Rejoignez-nous</a>
       </div>
       
     </section>
