@@ -9,15 +9,12 @@ class Activite extends Model
 {
     protected $fillable = [
         'name',
-        'id_proj',
         'detail',
         'responsable',
         'type',
-        'encadreur',
         'lieu',
         'date_debut',
         'date_fin',
-        'dure'
     ];
 
     public function projet()

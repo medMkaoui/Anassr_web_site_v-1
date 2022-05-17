@@ -11,6 +11,18 @@
         </div>
         </div>
     </div>
+    
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps quelque chose s'est mal passé</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+    
     {{-- Form_for create a new member --}}
     <div class="container">
         <form action="{{route('team/store')}}" method="POST" enctype="multipart/form-data">
@@ -30,6 +42,7 @@
                 <div class="mb-3">
                 <label for="photo" class="form-label">Image</label>
                 <input type="file" class="form-control"name="photo" placeholder="entrer votre photo" >
+                
                 </div>
 
                 <div class="mb-3">

@@ -25,10 +25,10 @@
           <div class="close">
             <i class="fa-solid fa-xmark" id="icon_close"></i>
           </div>
-              <a href="Index.html" class="underline-hover">Accueil</a>
-              <a href="About.html" class="underline-hover">Qui somme Nous?</a>
+              <a href="{{route('Accuiel')}}" class="underline-hover">Accueil</a>
+              <a href="{{route('about')}}" class="underline-hover">Qui somme Nous?</a>
               <a href="{{route('projet')}}" class="underline-hover">Projets</a>
-              <a href="Activites.html" class="underline-hover">Activites</a>
+              <a href="{{route('activites')}}" class="underline-hover">Activites</a>
               {{-- <a href="Store.html" class="underline-hover">Store</a> --}}
               <a href="{{route('soutenezNous')}}" class="underline-hover">Soutenez-nous</a>
               <a href="{{route('getInsc')}}" class="underline-hover">Inscription</a>
@@ -50,3 +50,11 @@
   
           </div>
         </div>
+        <div class="row Logo">
+          <div class="col logo_definition About_title">
+            <p class="logo_p2 about_us_p wow fadeup-animation" data-wow-delay="0.2s">{{$name}}</p>
+            <i class="fa-solid fa-arrow-down-from-line"></i>
+          </div>
+        </div>
+      </div>
+    </header>

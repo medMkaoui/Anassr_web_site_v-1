@@ -7,10 +7,20 @@
         <p class="lead mb-4">Sur cette page, vous devez entrer toutes les informations requises pour qu'elles soient affichées à l'endroit approprié. Ceci afin de permettre un meilleur contrôle sur les informations affichées sur votre site afin qu'elles ne soient pas dépendantes</p>
         <hr>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{{route('projets')}}" class="btn btn-primary btn-lg px-4 gap-3">Tout les Activité</a>
+            <a href="{{route('projets')}}" class="btn btn-primary btn-lg px-4 gap-3">Tout les Projets</a>
         </div>
         </div>
     </div>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Form_for create a new member --}}
     <div class="container">
         @php
@@ -39,10 +49,7 @@
                       @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="encadreur" class="form-label fw-bold">Encadreur</label>
-                    <input type="text" class="form-control"name="encadreur"  value="{{$projet->encadreur}}">
-                </div>
+               
                 <div class="mb-3">
                     <label for="lieu" class="form-label fw-bold">Lieu</label>
                     <input type="text" class="form-control"name="lieu"  value="{{$projet->lieu}}">
@@ -55,10 +62,7 @@
                     <label for="date_fin" class="form-label fw-bold">Date fin</label>
                     <input type="date" class="form-control"name="date_fin"  value="{{$projet->date_fin}}">
                 </div>
-                <div class="mb-3">
-                    <label for="dure" class="form-label fw-bold">Dure</label>
-                    <input type="number" min="0" class="form-control"name="dure"  value="{{$projet->dure}}">
-                </div>
+               
                 <div class="mb-3">
                     <label for="photo" class="form-label fw-bold">Images</label>
                     <input type="file" min="0" class="form-control" name="photo[]" multiple="multiple" value="{{$projet->photo}}">

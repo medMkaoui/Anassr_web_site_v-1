@@ -11,6 +11,17 @@
         </div>
         </div>
     </div>
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Form_for create a new member --}}
     <div class="container">
         <form action="{{route('projet/store')}}" method="POST" enctype="multipart/form-data">
@@ -30,15 +41,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label fw-bold">Type</label>
-                    <select name="type"  class="form-control">
+                    <select name="type" class="form-control">
                         <option value="Association">Association</option>
                         <option value="Panrtenarian">Panrtenarian</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="encadreur" class="form-label fw-bold">Encadreur</label>
-                    <input type="text" class="form-control"name="encadreur" >
-                </div>
+               
                 <div class="mb-3">
                     <label for="lieu" class="form-label fw-bold">Lieu</label>
                     <input type="text" class="form-control"name="lieu" >
@@ -52,12 +60,8 @@
                     <input type="date" class="form-control"name="date_fin" >
                 </div>
                 <div class="mb-3">
-                    <label for="dure" class="form-label fw-bold">Dure</label>
-                    <input type="number" min="0" class="form-control"name="dure" >
-                </div>
-                <div class="mb-3">
                     <label for="photo" class="form-label fw-bold">Images</label>
-                    <input type="file" min="0" class="form-control" name="photo[]" multiple="multiple">
+                    <input type="file" min="1" max="5" class="form-control" name="photo[]" multiple="multiple">
                 </div>
                 <div class="mb-3">
                     <label for="video" class="form-label fw-bold">Video</label>
@@ -94,6 +98,7 @@
     </div>
     <script>
         function Ajoute(){
+
             var el=document.createElement("div");
             el.className = "row";
             document.getElementById('Vids').appendChild(el);
@@ -106,6 +111,7 @@
             elt2.className = "form-control my-2";
             elt.appendChild(elt2);
         }
+
     </script>
  
 @endsection

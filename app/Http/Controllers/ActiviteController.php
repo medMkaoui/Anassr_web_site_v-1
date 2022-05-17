@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 class ActiviteController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $activite = Activite::all();
@@ -25,43 +30,62 @@ class ActiviteController extends Controller
 
     public function store(Request $request)
     {
+        if ($request-has('photo')) {
+            if (count($request->photo)>5) {
+                return redirect()->back()->withErrors("maximum files is 5");
+            }
+        }
+        
+
         $this->validate($request, [
             'name'           => 'required',
-            'id_proj'        => 'required',
             'detail'         => 'required',
             'responsable'    => 'required',
             'type'           => 'required',
-            'encadreur'      => 'required',
+            'encadreur'   => $request->type === 'Formation' ? 'required': 'nullable',
             'lieu'           => 'required',
             'date_debut'     => 'required',
+            'photo.*'        => 'required|max:2048',
             'date_fin'       => 'required',
-            'dure'           => 'required',
         ]);
 
+        
+        $idProj = 0;
+        if ($request->has('id_proj')) {
+            $idProj = $request->id_proj;
+
+        }
 
         $activite = Activite::create([
 
             'name'        =>$request->name,
-            'id_proj'     =>$request->id_proj,
+            'id_proj'     =>$idProj,
             'detail'      =>$request->detail,
             'responsable' =>$request->responsable,
+
             'type'        =>$request->type,
-            'encadreur'   =>$request->encadreur,
             'lieu'        =>$request->lieu,
             'date_debut'  =>$request->date_debut,
-            'date_fin'    =>$request->date_fin,
-            'dure'        =>$request->dure
+            'date_fin'    =>$request->date_fin
         ]);
         $activite = Activite::latest()->first();
-        foreach ($request->video as $item) {
-           
-            $video=Videos::create([
-                'id_activite'=>$activite->id,
-                'id_proj'=>0,
-                'URL'=>$item
-            ]);
+        if ($request->has('video')) {
+            
+            foreach ($request->video as $item) {
+                if ($item!="") {
+                    $video= Videos::create([
+                        'id_activite'=>$activite->id,
+                        'id_proj'=>0,
+                        'URL'=>$item
+                    ]);
+                }
+               
+            }
         }
+        
         foreach ($request->photo as $item) {
+            
+            
             $photo=$item;
             $newPhoto = time().$photo->getClientOriginalName();
             $photo->move('uploads/activites',$newPhoto);
@@ -92,17 +116,23 @@ class ActiviteController extends Controller
     public function update(Request $request, $id)
     {
         $activite = Activite::where('id', $id)->first();
+        if ($request->has('photo')) {
+            if (count($request->photo)>5) {
+                return redirect()->back()->withErrors("maximum files is 5");
+            }
+        }
+        
+
         $this->validate($request, [
             'name'        => 'required',
-            'id_proj'     => 'required',
             'detail'      => 'required',
             'responsable' => 'required',
             'type'        => 'required',
-            'encadreur'   => 'required',
+            'encadreur'   => $request->type === 'Formation' ? 'required': 'nullable',
+            'photo.*'     => 'mimes:jpg,png,jpeg|max:2048',
             'lieu'        => 'required',
             'date_debut'  => 'required',
             'date_fin'    => 'required',
-            'dure'        => 'required',
         ]);
 
         if ($request->has('photo')) {
@@ -125,6 +155,21 @@ class ActiviteController extends Controller
             }
         }
 
+        if ($request->has('video')) {
+            foreach ($activite->video as $item) {
+                $item->forceDelete();
+            }
+            foreach ($request->video as $item) {
+                if($item!=""){
+                    $video= Videos::create([
+                    'id_proj'=>0,
+                    'id_activite'=>$activite->id,
+                    'URL'=>$item
+                    ]);
+                }
+                
+            }
+        } 
         
 
         $activite->name         = $request->name;
@@ -132,11 +177,14 @@ class ActiviteController extends Controller
         $activite->detail       = $request->detail;
         $activite->responsable  = $request->responsable;
         $activite->type         = $request->type;
-        $activite->encadreur    = $request->encadreur;
+        if ($request->type =="Formation") {
+          $activite->encadreur    = $request->encadreur;
+        } else{
+            $activite->encadreur    =null;
+        }
         $activite->lieu         = $request->lieu;
         $activite->date_debut   = $request->date_debut;
         $activite->date_fin     = $request->date_fin;
-        $activite->dure         = $request->dure;
         $activite->save();
         return redirect()->back();
     }

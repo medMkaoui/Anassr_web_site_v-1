@@ -16,29 +16,94 @@
         </div>
       
     </div>
+
     <div class="row">
-        
-            @foreach ($adherents as $item)
-                
-                <div class="card my-3 " style="width: 18rem;">
-                    <img src="{{asset($item->image)}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h3 class="card-title">{{$item->first_name}} {{$item->last_name}}</h3>
-                      <p  class="">{{$item->nationalite}} / {{$item->ville}}</p>
-                      <p class="card-text">{{$item->adresse}}</p>
-                      <div class="col">
-                        <a href="{{route('adherent/edit',$item->id)}}" class="btn btn-primary"><i class='bx bx-edit-alt'></i></a>
-                        <a href="{{route('adherent/destroy',$item->id)}}" class="btn btn-danger"><i class='bx bx-trash'></i></a>
-                        <a href="{{route('adherent/show',$item->id)}}" class="btn btn-success"><i class='bx bx-show-alt'></i></a>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header pb-0">
+            <div class="row">
+              <h6 class="col">Votre Activités</h6>
+              <div class="col search">
+                <div class="button_save">
+                <a class="btn bg-gradient-primary mt-3 w-100" href="{{route('activite/create')}}">Nouveau Activité</a>
+              </div>
+              </div>
               
-            @endforeach
-        
-        
+            </div>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Photo</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Nom</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nationalité</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vile</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date debut</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date fin</th>
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($adherents as $item)
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            <img src="{{asset($item->image)}}" class="avatar avatar-sm me-3" alt="user1">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <h6 class="mb-0 text-sm">{{$item->first_name}} {{$item->last_name}}</h6>
+                      </td>
+                      <td>
+                        <span class="mb-0 text-sm">{{$item->nationalite}}</span>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm bg-gradient-success">{{$item->ville}}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="mb-0 text-sm">{{$item->adresse}}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="mb-0 text-sm">{{$item->date_debut}}</span>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="mb-0 text-sm">{{$item->date_fin}}</span>
+                      </td>
+                     
+                      <td class="align-middle">
+                        <a href="{{route('adherent/edit',$item->id)}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          Modifie
+                        </a>
+                      </td>
+                      <td class="align-middle">
+                        <a href="{{route('adherent/destroy',$item->id)}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          Supprimer
+                        </a>
+                      </td>
+                      <td class="align-middle">
+                        <a href="{{route('adherent/show',$item->id)}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          Afficher
+                        </a>
+                      </td>
+                    </tr>
+                  @endforeach
+                
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
   </div>
 </div>
 @endsection

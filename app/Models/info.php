@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class info extends Model
 {
-   protected $fillable = ['nom',  'slug', 'whatsapp', 'fb', 'instagram', 'youtube', 'video_apropos','video_support',
-   'rib', 'nom_banque', 'tel_trisorie','adresse', 'mot_president','vision', 'how_we_work', 'how_support_us'];
+   protected $fillable = ['whatsapp', 'fb', 'instagram', 'youtube','linkdin', 'video_apropos','video_support',
+   'adresse', 'mot_president','vision', 'how_we_work', 'how_support_us', 'txtAdheration'];
 }

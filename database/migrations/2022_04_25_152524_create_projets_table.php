@@ -19,12 +19,9 @@ class CreateProjetsTable extends Migration
             $table->string('name');
             $table->longText('detail');
             $table->string('responsable');
-            $table->string('type');
-            $table->string('encadreur');
             $table->string('lieu');
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->decimal('dure', 3, 2);
             $table->timestamps();
         });
     }

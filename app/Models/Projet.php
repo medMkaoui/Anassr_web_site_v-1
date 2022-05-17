@@ -11,12 +11,9 @@ class Projet extends Model
         'name',
         'detail',
         'responsable',
-        'type',
-        'encadreur',
         'lieu',
         'date_debut',
         'date_fin',
-        'dure'
     ];
     public function video()
     {

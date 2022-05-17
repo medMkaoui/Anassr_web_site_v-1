@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\File;
 
 class AdherentController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->except('store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +47,7 @@ class AdherentController extends Controller
             'last_name'=> 'required', 
             'email'=> 'required', 'phone'=> 'required', 
             'adresse'=> 'required', 
-            'image'=>'required|image|mimes:jpeg,jpg,png',
+            'image'=>'required|image|mimes:jpeg,jpg,png|max:2048',
             'lieu_naissance'=> 'required',    
             'nationalite'=> 'required', 'date_naissance'=> 'required', 
             'ville'=> 'required', 'profession'=> 'required', 
@@ -75,9 +79,10 @@ class AdherentController extends Controller
      * @param  \App\Models\Adherent  $adherent
      * @return \Illuminate\Http\Response
      */
-    public function show(Adherent $adherent)
+    public function show( $id)
     {
-        //
+        $adherents = Adherent::where('id',$id)->first();
+        return view("adherents.edit")->with("adherents",$adherents);
     }
 
     /**

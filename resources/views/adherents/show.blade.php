@@ -3,7 +3,12 @@
     
 <p>Learn Eclipse</p>
 <br />
-{{$projet->video->first()->URL}}
-<iframe width="560" height="315" src="{{$projet->video->first()->URL}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+@php
+    $data =$projet->video->first()->URL
+@endphp
+    
+@foreach(explode('/', $data->facings) as $info) 
+    <p>{{$info}}</p>
+@endforeach
 @endsection
 

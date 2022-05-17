@@ -11,15 +11,19 @@
         </div>
         </div>
     </div>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Form_for create a new member --}}
     <div class="container">
 
-        {{-- @if ($request->has("message"))
-            
-            <div class="alert alert-danger" role="alert">
-                {{$request->message}}
-              </div>
-        @endif --}}
         
         @php
             $niveauscolaireArray = ["< Bac", "Bac", "Bac + 1", "Bac+2"];

@@ -1,0 +1,52 @@
+input {
+  padding: 5px;
+  width: 100%;
+  border-radius: 40px;
+  border: 1px solid #dddd;
+  outline: none;
+  margin: 10px 0px;
+}
+
+.input-group input{
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  border: 1px solid #dddd;
+  border-radius: 40px;
+  outline: none;
+  margin: 10px 0px;
+}
+
+.button_save {
+  width: 216px;
+  float: right;
+}
+
+select#cars {
+  margin: 10px 0px;
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 40px;
+  border: 1px solid #dddd;
+  margin: 10px 0px;
+  outline: none;
+}
+
+option {padding: 20px 0px;margin: 10px 0px;}
+
+input#vehicle1 {
+  width: 29px;
+  margin: 10px 0px;
+}
+
+label {
+  font-size: 15px;
+}
+
+.search .button_save .btn {
+  margin: 0rem !important; 
+  margin-bottom: 1rem !important;
+}

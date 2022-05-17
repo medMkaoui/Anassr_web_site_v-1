@@ -100,3 +100,24 @@ Route::get('team/destroy/{id}', [App\Http\Controllers\TeamController::class, 'de
  Route::get('media/edit/{id}', [App\Http\Controllers\MediaController::class, 'edit'])->name('media/edit');
  Route::post('media/update/{id}', [App\Http\Controllers\MediaController::class, 'update'])->name('media/update');
  Route::get('media/destroy/{id}', [App\Http\Controllers\MediaController::class, 'destroy'])->name('media/destroy');
+
+
+ 
+ //Mails_routes
+ Route::get('mails', [App\Http\Controllers\MailController::class, 'index'])->name('mails');
+ Route::post('mails/store', [App\Http\Controllers\MailController::class, 'store'])->name('mails/store');
+ Route::get('mails/destroy/{id}', [App\Http\Controllers\MailController::class, 'destroy'])->name('mails/destroy');
+
+
+ //Mails_routes
+ Route::get('users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+ Route::get('user/destroy/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user/destroy');
+ Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user/edit');
+ Route::post('user/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user/update');
+
+
+Auth::routes();
+
+Route::get('/dashbord', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/statu', [App\Http\Controllers\HomeController::class, 'statu'])->name('statu');
+

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ClubController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +92,7 @@ class ClubController extends Controller
     {
         $clubs = Club::where('id', $id)->first();
         $this->validate($request, [
-            'name'=>'required', 'responsable'=>'required', 'details'=>'required', 'hero'=>'required'
+            'name'=>'required', 'responsable'=>'required', 'details'=>'required', 'hero'=>'max:2048'
 
         ]);
 

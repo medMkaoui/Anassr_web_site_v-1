@@ -15,22 +15,19 @@ class CreateInfosTable extends Migration
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom');
-            $table->string('slug');
             $table->string('whatsapp');
             $table->text('fb');
             $table->text('instagram');
             $table->text('youtube');
+            $table->text('linkdin');
             $table->string('video_apropos');
             $table->string('video_support');
-            $table->string('rib');
-            $table->string('nom_banque');
-            $table->string('tel_trisorie');
             $table->string('adresse');
             $table->longText('mot_president');
             $table->longText('vision');
             $table->longText('how_we_work');
             $table->longText('how_support_us');
+            $table->longText('txtAdheration');
             $table->timestamps();
         });
     }

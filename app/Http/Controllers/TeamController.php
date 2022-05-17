@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 class TeamController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
    
     public function index()
     {
@@ -46,10 +52,11 @@ class TeamController extends Controller
             'first_name'=> 'required',
             'last_name'=> 'required',
             'statu'=> 'required',
-            'photo'=> 'required|image',
+            'photo'=> 'required|image|max:2048',
             'description'=> 'required',
             'mail'=> 'required',
         ]);
+        
 
         $photo = $request->photo;
         $newPhoto = time().$photo->getClientOriginalName();
@@ -104,16 +111,24 @@ class TeamController extends Controller
             'first_name'=> 'required',
             'last_name'=> 'required',
             'statu'=> 'required',
+            'photo'=> 'image|max:2048',
             'description'=> 'required',
             'mail'=> 'required',
         ]);
 
+        
+         
+        
+
         if ($request->has('photo')) {
+            if (File::exists(public_path($team->photo))) {
+                File::delete(public_path($team->photo));
+            }  
             $photo = $request->photo;
             $newPhoto = time().$photo->getClientOriginalName();
             $photo->move('uploads/teams',$newPhoto);
             $team->photo='uploads/teams/'.$newPhoto;
-            $team->photo->save();
+            // $team->photo->save();
         }
        
         
@@ -136,6 +151,9 @@ class TeamController extends Controller
     public function destroy( $id)
     {
         $team = Team::where('id', $id)->first();
+        if (File::exists(public_path($team->photo))) {
+            File::delete(public_path($team->photo));
+        }  
         $team->forceDelete();
         return redirect()->back();
     }

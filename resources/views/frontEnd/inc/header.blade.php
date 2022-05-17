@@ -25,16 +25,16 @@
           <div class="close">
             <i class="fa-solid fa-xmark" id="icon_close"></i>
           </div>
-              <a href="{{route('Accuiel')}}" class="underline-hover">Ana</a>
-              <a href="About.html" class="underline-hover">Qui somme Nous?</a>
+              <a href="{{route('Accuiel')}}" class="underline-hover">Accueil</a>
+              <a href="{{route('about')}}" class="underline-hover">Qui somme Nous?</a>
               <a href="{{route('projet')}}" class="underline-hover">Projets</a>
               <a href="{{route('activites')}}" class="underline-hover">Activites</a>
               {{-- <a href="Store.html" class="underline-hover">Store</a> --}}
               <a href="{{route('soutenezNous')}}" class="underline-hover">Soutenez-nous</a>
               <a href="{{route('getInsc')}}" class="underline-hover">Inscription</a>
         </nav>
-      
-      
+
+
       <div class="container header-div1">
         <div class="row nav ">
           <div class="col-12 wow fadeup-animation">
@@ -47,6 +47,6 @@
               <a href="{{route('soutenezNous')}}" class="underline-hover">Soutenez-nous</a>
               <a href="{{route('getInsc')}}" class="underline-hover">Inscription</a>
             </nav>
-  
+
           </div>
         </div>

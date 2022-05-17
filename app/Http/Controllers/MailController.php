@@ -7,79 +7,31 @@ use Illuminate\Http\Request;
 
 class MailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('auth')->except('store');
+    }
+    
     public function index()
     {
-        //
+        $mails = mail::all();
+        return view('mails.index')->with('mails', $mails);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'mail' => 'required'
+        ]);
+
+        $mail = mail::create($request->all());
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function show(mail $mail)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(mail $mail)
+    public function destroy( $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, mail $mail)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\mail  $mail
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(mail $mail)
-    {
-        //
+        $mail = mail::where('id', $id)->first();
+        $mail->forceDelete();
+        return redirect()->back();
     }
 }

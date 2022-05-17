@@ -1,7 +1,40 @@
 // Wow Animation JS Start
-new WOW().init(); 
+new WOW().init();
 // Wow Animation JS Start
 // Testimonial Slider JS Start
+
+
+
+$(document).ready(function(){
+    $('.carousel').carousel({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        indicators:true,
+        autoplay:true,
+        autoplaySpeed: 1000,
+
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+              breakpoint: 426,
+              settings: {
+                  slidesToShow: 1,
+              }
+          }
+        ]
+        });
+  });
 
 $('.testimonial-slider').slick({
     infinite: true,
@@ -26,7 +59,7 @@ $('.testimonial-slider').slick({
                 slidesToShow: 1,
             }
         }
-      
+
   ]
   });
   // Testimonial Slider JS End
@@ -35,7 +68,7 @@ $('.testimonial-slider').slick({
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-  
+
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
@@ -101,52 +134,28 @@ $('.servece-slider').slick({
 
 //pagination start
 
-const pages = document.querySelectorAll(".page-content .page");
-const pageNumbersContainer = document.querySelector(".page-numbers-container");
+var items = $(".list-wrapper .list-item");
+    var numItems = items.length;
+    var perPage = 9;
 
-if (pageNumbersContainer) {
+    items.slice(perPage).hide();
 
-	const createPagination = () => {
-	    pages.forEach((p, i) => {
-	        const pageNumber = document.createElement("div");
-	        pageNumber.classList.add("page-number");
-	        pageNumber.textContent = i + 1;
-	        pageNumber.addEventListener("click", () => {
-	            activatePage(i);
-	        })
-
-	        pageNumbersContainer.appendChild(pageNumber);
-	    })
-
-	    document.querySelector(".page-number").classList.add("active");
-	}
-
-	createPagination();
-
-	const pageNumbers = document.querySelectorAll(".page-numbers-container .page-number");
-
-	const activatePage = (pageNumber) => {
-	    pages.forEach(p => {
-	        p.classList.remove("active");
-	    })
-
-	    pages[pageNumber].classList.add("active");
-
-	    pageNumbers.forEach(p => {
-	        p.classList.remove("active");
-	    })
-
-	    pageNumbers[pageNumber].classList.add("active");
-
-	    window.scroll(0, 0);
-	}
-	
-}
+    $('#pagination-container').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "&laquo;",
+        nextText: "&raquo;",
+        onPageClick: function (pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
 
 //pagination end
 
 
-//navbar start 
+//navbar start
 
 const targetDiv = document.getElementById("nav_mob");
 const btn = document.getElementById("icon_bar");
@@ -155,7 +164,7 @@ const btn_close = document.getElementById("icon_close");
 
 
 btn.onclick = function () {
-    
+
     targetDiv.style.display = "grid";
     btn.style.display = "none";
 };
@@ -166,19 +175,19 @@ btn_close.onclick = function () {
 
 function showMOb() {
     if (window.innerWidth < 991) { // If media query matches
-        
+
         btn.style.display="block";
-        
+
     }
   }
 function myFunction() {
     if (window.innerWidth > 991) { // If media query matches
-       
+
         targetDiv.style.display = "none";
     }
   }
-  
- 
+
+
   window.addEventListener('resize', myFunction);
   window.addEventListener('resize', showMOb);
-//navbar end 
+//navbar end

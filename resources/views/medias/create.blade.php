@@ -11,6 +11,16 @@
         </div>
         </div>
     </div>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Form_for create a new member --}}
     <div class="container">
         <form action="{{route('media/store')}}" method="POST" enctype="multipart/form-data">

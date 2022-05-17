@@ -1,6 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('Content')
+
+   
     <div class="px-4 py-5 my-1 text-center">
         <h1 class="display-5 fw-bold">Create un noveau Activité</h1>
         <div class="col-lg-6 mx-auto">
@@ -11,6 +13,18 @@
         </div>
         </div>
     </div>
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+    
     {{-- Form_for create a new member --}}
     <div class="container">
         <form action="{{route('activite/store')}}" method="POST" enctype="multipart/form-data">
@@ -30,16 +44,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label fw-bold">Type</label>
-                    <select name="type"  class="form-control">
+                    <select name="type" id="Type" onchange="TypeChange()" class="form-control">
                         <option value="Formation">Formation</option>
                         <option value="Soiré">Soiré</option>
                         <option value="Matiné">Matiné</option>
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"  id="Encadreur" >
                     <label for="encadreur" class="form-label fw-bold">Encadreur</label>
-                    <input type="text" class="form-control"name="encadreur" >
+                    <input type="text" class="form-control" name="encadreur" >
                 </div>
+                
                 <div class="mb-3">
                     <label for="lieu" class="form-label fw-bold">Lieu</label>
                     <input type="text" class="form-control"name="lieu" >
@@ -52,10 +67,7 @@
                     <label for="date_fin" class="form-label fw-bold">Date fin</label>
                     <input type="date" class="form-control"name="date_fin" >
                 </div>
-                <div class="mb-3">
-                    <label for="dure" class="form-label fw-bold">Dure</label>
-                    <input type="number" min="0" class="form-control"name="dure" >
-                </div>
+                
                 <div class="mb-3">
                     <label for="id_proj" class="form-label fw-bold">Projet</label>
                     <select name="id_proj"  class="form-control">
@@ -66,7 +78,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="photo" class="form-label fw-bold">Images</label>
-                    <input type="file" min="0" class="form-control" name="photo[]" multiple="multiple">
+                    <input type="file" id="mesPhotos" min="0" class="form-control" onchange=" Photos()" name="photo[]" multiple="multiple">
                 </div>
                 <div class="mb-3">
                     <label for="video" class="form-label fw-bold">Video</label>
@@ -87,19 +99,35 @@
       </form>
     </div>
     <script>
+        var i=0;
         function Ajoute(){
-
-            var el=document.createElement("div");
-            el.className = "row";
-            document.getElementById('Vids').appendChild(el);
-            var elt=document.createElement("div");
-            elt.className = "col";
-            el.appendChild(elt);
-            var elt2=document.createElement("input");
-            elt2.type = 'text';
-            elt2.name = 'video[]';
-            elt2.className = "form-control my-2";
-            elt.appendChild(elt2);
+            if(i<4){
+                var el=document.createElement("div");
+                el.className = "row";
+                document.getElementById('Vids').appendChild(el);
+                var elt=document.createElement("div");
+                elt.className = "col";
+                el.appendChild(elt);
+                var elt2=document.createElement("input");
+                elt2.type = 'text';
+                elt2.name = 'video[]';
+                elt2.className = "form-control my-2";
+                elt.appendChild(elt2);
+            }
+           i++;
         }
+
+        
+        function TypeChange(){
+
+            document.getElementById('Encadreur').style.display = "none";
+
+            if ( document.getElementById('Type').value == "Formation") {
+                document.getElementById('Encadreur').style.display = "block";
+            }
+            
+        }
+      
+       
     </script>
 @endsection

@@ -11,6 +11,17 @@
         </div>
         </div>
     </div>
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Opps Something went wrong</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
     {{-- Form_for create a new member --}}
     <div class="container">
         @php
@@ -33,16 +44,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label fw-bold">Type</label>
-                    <select name="type"  class="form-control">
+                    <select name="type" id="Type" class="form-control" onchange="TypeChange()" >
                         @foreach ($typeActArray as $item)
                          <option value="{{$item}}" {{($item==$activite->type)? "selected": ""}}>{{$item}}</option>
                       @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"  id="Encadreur" style="display: none">
                     <label for="encadreur" class="form-label fw-bold">Encadreur</label>
-                    <input type="text" class="form-control"name="encadreur"  value="{{$activite->encadreur}}">
+                    <input type="text" class="form-control" name="encadreur" value="{{$activite->encadreur}}">
                 </div>
+                
                 <div class="mb-3">
                     <label for="lieu" class="form-label fw-bold">Lieu</label>
                     <input type="text" class="form-control"name="lieu"  value="{{$activite->lieu}}">
@@ -56,10 +68,6 @@
                     <input type="date" class="form-control"name="date_fin"  value="{{$activite->date_fin}}">
                 </div>
                 <div class="mb-3">
-                    <label for="dure" class="form-label fw-bold">Dure</label>
-                    <input type="number" min="0" class="form-control"name="dure"  value="{{$activite->dure}}">
-                </div>
-                <div class="mb-3">
                     <label for="id_proj" class="form-label fw-bold">Projet</label>
                     <select name="id_proj"  class="form-control">
                       @foreach ($projets as $item)
@@ -71,9 +79,58 @@
                     <label for="photo" class="form-label fw-bold">Images</label>
                     <input type="file" min="0" class="form-control" name="photo[]" multiple="multiple" value="{{$activite->photo}}">
                 </div>
+                <div class="mb-3">
+                    <label for="video" class="form-label fw-bold">Video</label>
+                    <div class="container">
+                        <div id="Vids" class="row">
+                          @foreach ($activite->video as $vid)
+                            <div class="col">
+                                <input type="text" min="0" class="form-control my-2" name="video[]" value="{{$vid->URL}}">
+                            </div>
+                          @endforeach
+                          <div class="col">
+                            <button type="button" class="btn btn-primary my-2" onclick="Ajoute()">+</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+               
                
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
       </form>
     </div>
+    <script>
+
+        var i={{count($activite->video)-1}};
+        function Ajoute(){
+            if(i<4){
+                var el=document.createElement("div");
+                el.className = "row";
+                document.getElementById('Vids').appendChild(el);
+                var elt=document.createElement("div");
+                elt.className = "col";
+                el.appendChild(elt);
+                var elt2=document.createElement("input");
+                elt2.type = 'text';
+                elt2.name = 'video[]';
+                elt2.className = "form-control my-2";
+                elt.appendChild(elt2);
+            }
+           i++;
+        }
+
+        function TypeChange(){
+            document.getElementById('Encadreur').style.display = "none";
+
+            if ( document.getElementById('Type').value == "Formation") {
+                document.getElementById('Encadreur').style.display = "block";
+                document.getElementById('Encadreur').valeu = "{{$activite->encadreur}}";
+            }
+        }
+            window.onload = function(){
+                TypeChange();
+            };
+       
+    </script>
 @endsection

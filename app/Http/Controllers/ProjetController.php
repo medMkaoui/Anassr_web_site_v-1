@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 class ProjetController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $projet = Projet::all();
@@ -27,19 +31,18 @@ class ProjetController extends Controller
 
     public function store(Request $request)
     {
+        if (count($request->photo)>5) {
+            return redirect()->back()->withErrors("maximum files is 5");
+        }
         $this->validate($request, [
             'name'        => 'required',
             'detail'      => 'required',
             'responsable' => 'required',
             'type'        => 'required',
-            'encadreur'   => 'required',
             'lieu'        => 'required',
             'date_debut'  => 'required',
             'date_fin'    => 'required',
-            'dure'        => 'required',
-            'video'        => 'required',
-            'photo'        => 'required',
-            'Partenaire'        => 'required',
+            'photo.*'       => 'mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $projet = Projet::create([
@@ -48,11 +51,9 @@ class ProjetController extends Controller
             'detail'      =>$request->detail,
             'responsable' =>$request->responsable,
             'type'        =>$request->type,
-            'encadreur'   =>$request->encadreur,
             'lieu'        =>$request->lieu,
             'date_debut'  =>$request->date_debut,
             'date_fin'    =>$request->date_fin,
-            'dure'        =>$request->dure
         ]);
 
         $projet = Projet::latest()->first();
@@ -66,13 +67,15 @@ class ProjetController extends Controller
         }
 
         
-
-        foreach ($request->Partenaire as $item) {
+      if ($request->has("Partenaire")) {
+          foreach ($request->Partenaire as $item) {
             $video=Projet_partenaires::create([
                 'id_proj'=>$projet->id,
                 'id_part'=>$item
             ]);
         }
+      }
+        
 
         foreach ($request->photo as $item) {
             $photo=$item;
@@ -105,16 +108,19 @@ class ProjetController extends Controller
     public function update(Request $request,  $id)
     {
         $projet = Projet::where('id', $id)->first();
+
+        if (count($request->photo)>5) {
+            return redirect()->back()->withErrors("maximum files is 5");
+        }
+
         $this->validate($request, [
             'name'        => 'required',
             'detail'      => 'required',
             'responsable' => 'required',
-            'type'        => 'required',
-            'encadreur'   => 'required',
             'lieu'        => 'required',
+            'photo.*'     => 'mimes:jpg,png,jpeg|max:2048',
             'date_debut'  => 'required',
             'date_fin'    => 'required',
-            'dure'        => 'required',
         ]);
 
         if ($request->has('photo')) {
@@ -124,6 +130,7 @@ class ProjetController extends Controller
                 }
                 $item->forceDelete();
             }
+
             foreach ($request->photo as $item) {
                 $newPhoto = time().$item->getClientOriginalName();
                 $item->move('uploads/projet',$newPhoto);
@@ -152,12 +159,9 @@ class ProjetController extends Controller
         $projet->name         = $request->name;
         $projet->detail       = $request->detail;
         $projet->responsable  = $request->responsable;
-        $projet->type         = $request->type;
-        $projet->encadreur    = $request->encadreur;
         $projet->lieu         = $request->lieu;
         $projet->date_debut   = $request->date_debut;
         $projet->date_fin     = $request->date_fin;
-        $projet->dure         = $request->dure;
         $projet->save();
         return redirect()->back();
     }
