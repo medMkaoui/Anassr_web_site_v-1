@@ -24,7 +24,6 @@
     {{-- Form_for create a new member --}}
     <div class="container">
 
-        
         @php
             $niveauscolaireArray = ["< Bac", "Bac", "Bac + 1", "Bac+2"];
         @endphp
@@ -75,7 +74,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label fw-bold">Image</label>
-                    <input type="file" min="0" class="form-control" name="image" multiple="multiple" value="{{$adherents->image}}">
+                    <input type="file" min="0" class="form-control" name="image" value="{{$adherents->image}}">
                 </div>
 
                 
@@ -87,7 +86,7 @@
                     <label for="niveau_scolaire" class="form-label fw-bold">Niveau_scolaire</label>
                     <select name="niveau_scolaire" class="form-control">
                         @foreach ($niveauscolaireArray as $item)
-                            <option value="{{$item}}">{{$item}}</option>
+                            <option value="{{$item}}" {{($item==$adherents->niveau_scolaire)? "selected": ""}}>{{$item}}</option>
                         @endforeach
                     </select>                      
                 </div>

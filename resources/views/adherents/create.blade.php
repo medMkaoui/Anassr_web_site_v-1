@@ -23,12 +23,14 @@
     @endif
     {{-- Form_for create a new member --}}
     <div class="container">
+        @php
+          $niveauscolaireArray = ["< Bac", "Bac", "Bac + 1", "Bac+2"];
+        @endphp
         <form action="{{route('adherent/store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 
                 <div>
-                   
                         <div class="row">
                           <div class="col" id="firstColumn">
                             <div class="mb-3">
@@ -79,16 +81,18 @@
                                 <input type="file" min="0" class="form-control" name="image">
                             </div>
             
-                            
                             <div class="mb-3">
                                 <label for="nationalite" class="form-label fw-bold">nationalité</label>
                                 <input type="text" min="0" class="form-control"name="nationalite" >
                             </div>
                             <div class="mb-3">
                                 <label for="niveau_scolaire" class="form-label fw-bold">Niveau_scolaire</label>
-                                <input type="text" min="0" class="form-control"name="niveau_scolaire"  >
+                                <select name="niveau_scolaire" class="form-control">
+                                    @foreach ($niveauscolaireArray as $item)
+                                        <option value="{{$item}}">{{$item}}</option>
+                                    @endforeach
+                                </select>                      
                             </div>
-
                            
                           </div>
                           

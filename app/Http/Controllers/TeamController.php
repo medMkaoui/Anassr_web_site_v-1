@@ -49,12 +49,12 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'first_name'=> 'required',
-            'last_name'=> 'required',
-            'statu'=> 'required',
+            'first_name'=> 'required|max:10',
+            'last_name'=> 'required|max:10',
+            'statu'=> 'required|max:20',
             'photo'=> 'required|image|max:2048',
-            'description'=> 'required',
-            'mail'=> 'required',
+            'description'=> 'required|max:100',
+            'mail'=> 'required|max:35',
         ]);
         
 
@@ -74,51 +74,28 @@ class TeamController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
     public function show(Team $team)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
     public function edit( $id)
     {
         $team = Team::where('id', $id)->first();
         return view('teams.edit')->with('team',$team);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,  $id)
     {
         $team = Team::where('id', $id)->first();
         $this->validate($request, [
-            'first_name'=> 'required',
-            'last_name'=> 'required',
-            'statu'=> 'required',
+            'first_name'=> 'required|max:10',
+            'last_name'=> 'required|max:10',
+            'statu'=> 'required|max:20',
             'photo'=> 'image|max:2048',
-            'description'=> 'required',
-            'mail'=> 'required',
+            'description'=> 'required|max:100',
+            'mail'=> 'required|max:35',
         ]);
-
-        
-         
-        
 
         if ($request->has('photo')) {
             if (File::exists(public_path($team->photo))) {
@@ -128,7 +105,6 @@ class TeamController extends Controller
             $newPhoto = time().$photo->getClientOriginalName();
             $photo->move('uploads/teams',$newPhoto);
             $team->photo='uploads/teams/'.$newPhoto;
-            // $team->photo->save();
         }
        
         
@@ -142,12 +118,6 @@ class TeamController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
     public function destroy( $id)
     {
         $team = Team::where('id', $id)->first();

@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     public function projets()
     {
-        $projets = Projet::paginate(3);
+        $projets = Projet::all();
         
         return view('frontEnd.projets')->with('projets',$projets)->with('name','Nos Projets');
     }

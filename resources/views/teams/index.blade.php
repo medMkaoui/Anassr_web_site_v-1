@@ -6,9 +6,6 @@
         <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Sur cette page, vous devez entrer toutes les informations requises pour qu'elles soient affichées à l'endroit approprié. </p>
         <hr>
-        {{-- <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a  href="{{route('team/create')}}" class="btn btn-primary btn-lg px-4 gap-3">Nouvau membre</a>
-        </div> --}}
         </div>
     </div>
     {{-- tables_of_members --}}
@@ -50,8 +47,7 @@
                                 <div>
                                   <img src="{{asset($item->photo)}}" class="avatar avatar-sm me-3" alt="user1">
                                 </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                  
+                                  <div class="d-flex flex-column justify-content-center">
                                 </div>
                               </div>
                             </td>
@@ -81,7 +77,6 @@
                           </tr>
                         @endforeach
                       
-                        
                       </tbody>
                     </table>
                   </div>

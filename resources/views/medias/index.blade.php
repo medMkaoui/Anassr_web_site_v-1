@@ -39,7 +39,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Nom</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lieu</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date de presse</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mail</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">URL</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>

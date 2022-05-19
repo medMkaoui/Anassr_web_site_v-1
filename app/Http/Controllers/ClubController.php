@@ -12,37 +12,21 @@ class ClubController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $clubs = Club::all();
         return view('clubs.index')->with('clubs',$clubs);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('clubs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'=>'required', 'responsable'=>'required', 'details'=>'required', 'hero'=>'required'
+            'name'=>'required|max:20', 'responsable'=>'required|max:20', 'details'=>'required|max:416', 'hero'=>'required|mimes:jpg,png,jpeg|max:2048'
         ]);
 
         $hero = $request->hero;
@@ -58,46 +42,26 @@ class ClubController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
     public function show(Club $club)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $clubs = Club::where('id', $id)->first();
         return view('clubs.edit')->with('clubs',$clubs);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $clubs = Club::where('id', $id)->first();
         $this->validate($request, [
-            'name'=>'required', 'responsable'=>'required', 'details'=>'required', 'hero'=>'max:2048'
+            'name'=>'required|max:20', 'responsable'=>'required|max:20', 'details'=>'required|max:416', 'hero'=>'mimes:jpg,png,jpeg|max:2048'
 
         ]);
 
         if ($request->has('hero')) {
-            // dd($request->hero->getClientOriginalName());
             if (File::exists(public_path($clubs->hero))) {
                 File::delete(public_path($clubs->hero));
             }
@@ -117,12 +81,6 @@ class ClubController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Club  $club
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $club = Club::where('id', $id)->first();

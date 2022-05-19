@@ -71,6 +71,7 @@
                 <div class="mb-3">
                     <label for="id_proj" class="form-label fw-bold">Projet</label>
                     <select name="id_proj"  class="form-control">
+                        <option value=""></option>
                       @foreach ($projets as $item)
                          <option value="{{$item->id}}">{{$item->name}}</option>
                       @endforeach

@@ -22,13 +22,12 @@
                   </div>
                   <a class="about_link link_project" href="{{route('showProjet',$item->id)}}">EN SAVOIR PLUS <i class="fa-solid fa-right-long"></i></a>
               </div>
-
           </div>
         @endforeach
-
+    
 
       </div>
-  <div id="pagination-container"></div>
+ 
 
 
 

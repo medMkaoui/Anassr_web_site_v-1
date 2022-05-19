@@ -26,7 +26,6 @@
       <p class="about_p" >
         {{$Activite->detail}}
       </p>
-      {{-- <a class="about_link" href="#">EN SAVOIR PLUS <i class="fa-solid fa-right-long"></i></a> --}}
     </div>
     <div class="sec1_blog wow left-animation">
         <div class="sec1_blog_div fiche">
@@ -211,3 +210,4 @@
 
 @include('frontEnd.inc.footer')
 </body>
+

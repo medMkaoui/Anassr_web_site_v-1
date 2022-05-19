@@ -22,10 +22,10 @@
         <div class="card mb-4">
           <div class="card-header pb-0">
             <div class="row">
-              <h6 class="col">Votre Activités</h6>
+              <h6 class="col">Noveau Adherent</h6>
               <div class="col search">
                 <div class="button_save">
-                <a class="btn bg-gradient-primary mt-3 w-100" href="{{route('activite/create')}}">Nouveau Activité</a>
+                <a class="btn bg-gradient-primary mt-3 w-100" href="{{route('adherent/create')}}">Noveau Adherent</a>
               </div>
               </div>
               

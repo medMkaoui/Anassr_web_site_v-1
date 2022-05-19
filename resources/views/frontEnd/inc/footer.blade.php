@@ -13,38 +13,29 @@
       </nav>
     </div>
     <div class="media container row">
-          <div class="social col"><a href="https://web.facebook.com/AnassrCulArt"><img class="icon" target="_blank" src="assets/images/social-media/fb.png" alt="logo"></a></div>
-          <div class="social col"><a href="https://www.instagram.com/anassrculart/" target="_blank"><img class="icon" src="assets/images/social-media/insta.png" alt="logo"></a></div>
-          <div class="social col"><a href="#"><img class="icon" src="assets/images/social-media/whatssap.png" alt="logo" target="_blank"></a></div>
-          <div class="social col"><a href="#"><img class="icon" src="assets/images/social-media/twitter.png" alt="logo" target="_blank"></a></div>
-          <div class="social col"><a href="#"><img class="icon" src="assets/images/social-media/linkdin.png" alt="logo" target="_blank"></a></div>
+          <div class="social col"><a href="https://web.facebook.com/AnassrCulArt"><img class="icon" target="_blank" src="{{asset("assets/images/social-media/fb.png")}}" alt="logo"/></a></div>
+          <div class="social col"><a href="https://www.instagram.com/anassrculart/" target="_blank"><img class="icon" src="{{asset("assets/images/social-media/insta.png")}}" alt="logo"/></a></div>
+          <div class="social col"><a href="#"><img class="icon" src="{{asset("assets/images/social-media/whatssap.png")}}" alt="logo"/></a></div>
+          <div class="social col"><a href="#"><img class="icon" src="{{asset("assets/images/social-media/twitter.png")}}" alt="logo" /></a></div>
+          <div class="social col"><a href="#"><img class="icon" src="{{asset("assets/images/social-media/linkdin.png")}}" alt="logo" /></a></div>
     </div>
   </div>
-</footer>
+</footer>                                              
 <footer>
   <div class="div-p1">
     <p class="footer-p1">© 2021 Association Anassr Culture et Art (ANCA)</p>
   </div>
 </footer>
 
-
-<!-- Wow Animation JS Link -->
 <!-- Wow Animation JS Link -->
 <script src="{{asset("assets/js/jquery.min.js")}}"></script>
 <script src="{{asset("assets/js/simplePagination.js")}}"></script>
 <script src="{{asset("assets/js/materialize.min.js")}}"></script>
-<!-- Banner Moving Js Link -->
-
 <!-- Bootstrap JS Link -->
 <script src="{{asset("assets/js/bootstrap.min.js")}}"></script>
-
 <!-- Slick Slider JS Link -->
 <script src="{{asset("assets/js/slick.min.js")}}"></script>
-
 <!-- Portfolio Tabbing JS Link -->
 <script src="{{asset("assets/js/jquery.mixitup.min.js")}}"></script>
-
 <script src="{{asset("assets/js/wow.min.js")}}"></script>
-
-
 <script src="{{asset("assets/js/app.js")}}"></script>

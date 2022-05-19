@@ -29,7 +29,7 @@
         </div>
       @endforeach
 </div>
-<div id="pagination-container"></div>
+{{-- <div id="pagination-container"></div> --}}
 </section>
 
 <section class="container wow fadeup-animation">

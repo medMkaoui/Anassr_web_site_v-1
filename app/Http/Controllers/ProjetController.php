@@ -35,14 +35,14 @@ class ProjetController extends Controller
             return redirect()->back()->withErrors("maximum files is 5");
         }
         $this->validate($request, [
-            'name'        => 'required',
-            'detail'      => 'required',
-            'responsable' => 'required',
+            'name'        => 'required|max:20',         
+            'detail'      => 'required|max:740',
+            'responsable' => 'required|max:25',
             'type'        => 'required',
-            'lieu'        => 'required',
+            'lieu'        => 'required|max:15',
             'date_debut'  => 'required',
             'date_fin'    => 'required',
-            'photo.*'       => 'mimes:jpg,png,jpeg|max:2048',
+            'photo.*'     => 'mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $projet = Projet::create([
@@ -57,15 +57,18 @@ class ProjetController extends Controller
         ]);
 
         $projet = Projet::latest()->first();
-        
-        foreach ($request->video as $item) {
-            $video=Videos::create([
-                'id_proj'=>$projet->id,
-                'id_activite'=>0,
-                'URL'=>$item
-            ]);
+        if ($request->has('video')) {
+            
+            foreach ($request->video as $item) {
+                if ($item!="") {
+                    $video= Videos::create([
+                        'id_proj'=>$projet->id,
+                        'id_activite'=>0,
+                        'URL'=>$item
+                    ]);
+                }
+            }
         }
-
         
       if ($request->has("Partenaire")) {
           foreach ($request->Partenaire as $item) {
@@ -76,7 +79,7 @@ class ProjetController extends Controller
         }
       }
         
-
+      if ($request->has('photo')) {
         foreach ($request->photo as $item) {
             $photo=$item;
             $newPhoto = time().$photo->getClientOriginalName();
@@ -88,6 +91,7 @@ class ProjetController extends Controller
                 'URL'=>'uploads/projet/'.$newPhoto
             ]);
         }
+      }
         return redirect()->back();
     }
 
@@ -108,16 +112,16 @@ class ProjetController extends Controller
     public function update(Request $request,  $id)
     {
         $projet = Projet::where('id', $id)->first();
-
+        if ($request->has('photo')) {
         if (count($request->photo)>5) {
             return redirect()->back()->withErrors("maximum files is 5");
-        }
+        }}
 
         $this->validate($request, [
-            'name'        => 'required',
-            'detail'      => 'required',
-            'responsable' => 'required',
-            'lieu'        => 'required',
+            'name'        => 'required|max:30',
+            'detail'      => 'required|max:740',
+            'responsable' => 'required|max:25',
+            'lieu'        => 'required|max:15',
             'photo.*'     => 'mimes:jpg,png,jpeg|max:2048',
             'date_debut'  => 'required',
             'date_fin'    => 'required',
@@ -148,11 +152,13 @@ class ProjetController extends Controller
                 $item->forceDelete();
             }
             foreach ($request->video as $item) {
-                $video=Videos::create([
-                    'id_proj'=>$projet->id,
-                    'id_activite'=>0,
-                    'URL'=>$item
-                ]);
+                if($item!=""){
+                    $video= Videos::create([
+                        'id_proj'=>$projet->id,
+                        'id_activite'=>0,
+                        'URL'=>$item
+                    ]);
+                }
             }
         } 
 

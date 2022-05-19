@@ -39,7 +39,6 @@ class InfoController extends Controller
     public function update(Request $request, $id)
     {
         $info = info::where('id',$id)->first();
-        // dd($info);
         $this->validate($request, [
             'whatsapp' =>'required',
             'fb' =>'required', 
@@ -49,9 +48,9 @@ class InfoController extends Controller
             'video_apropos' =>'required',
             'video_support' =>'required',
             'adresse' =>'required', 
-            'mot_president' =>'required',
-            'vision' =>'required', 
-            'how_we_work' =>'required',
+            'mot_president' =>'required|max:650',
+            'vision' =>'required|max:1000', 
+            'how_we_work' =>'required|max:1000',
             'how_support_us' =>'required',
             'txtAdheration' =>'required']);
 

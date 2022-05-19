@@ -30,7 +30,7 @@ class ActiviteController extends Controller
 
     public function store(Request $request)
     {
-        if ($request-has('photo')) {
+        if ($request->has('photo')) {
             if (count($request->photo)>5) {
                 return redirect()->back()->withErrors("maximum files is 5");
             }
@@ -38,13 +38,13 @@ class ActiviteController extends Controller
         
 
         $this->validate($request, [
-            'name'           => 'required',
-            'detail'         => 'required',
-            'responsable'    => 'required',
-            'type'           => 'required',
+            'name'           => 'required|string|max:15',
+            'detail'         => 'required|string|max:820',
+            'responsable'    => 'required|string|max:20',
+            'type'           => 'required|string|max:20',
             'encadreur'   => $request->type === 'Formation' ? 'required': 'nullable',
-            'lieu'           => 'required',
-            'date_debut'     => 'required',
+            'lieu'           => 'required|string|max:20',
+            'date_debut'     => 'required|before:date_fin',
             'photo.*'        => 'required|max:2048',
             'date_fin'       => 'required',
         ]);
@@ -62,7 +62,6 @@ class ActiviteController extends Controller
             'id_proj'     =>$idProj,
             'detail'      =>$request->detail,
             'responsable' =>$request->responsable,
-
             'type'        =>$request->type,
             'lieu'        =>$request->lieu,
             'date_debut'  =>$request->date_debut,
@@ -79,12 +78,10 @@ class ActiviteController extends Controller
                         'URL'=>$item
                     ]);
                 }
-               
             }
         }
         
         foreach ($request->photo as $item) {
-            
             
             $photo=$item;
             $newPhoto = time().$photo->getClientOriginalName();
@@ -101,7 +98,6 @@ class ActiviteController extends Controller
     public function show( $id)
     {
         $activite = Activite::where('id', $id)->first();
-        // dd($activite->video->first()->URL);
         return view('activites.show')->with('activite', $activite);
     }
 
@@ -122,16 +118,15 @@ class ActiviteController extends Controller
             }
         }
         
-
         $this->validate($request, [
-            'name'        => 'required',
-            'detail'      => 'required',
-            'responsable' => 'required',
-            'type'        => 'required',
+            'name'        => 'required|string|max:15',
+            'detail'      => 'required|string|max:820',
+            'responsable' => 'required|string',
+            'type'        => 'required|string|max:20',
             'encadreur'   => $request->type === 'Formation' ? 'required': 'nullable',
             'photo.*'     => 'mimes:jpg,png,jpeg|max:2048',
-            'lieu'        => 'required',
-            'date_debut'  => 'required',
+            'lieu'        => 'required|string|max:20',
+            'date_debut'  => 'required|before:date_fin',
             'date_fin'    => 'required',
         ]);
 
@@ -151,7 +146,6 @@ class ActiviteController extends Controller
                     'id_proj'=>0,
                     'URL'=>'uploads/activites/'.$newPhoto
                 ]);
-                
             }
         }
 
@@ -167,7 +161,6 @@ class ActiviteController extends Controller
                     'URL'=>$item
                     ]);
                 }
-                
             }
         } 
         
@@ -195,7 +188,6 @@ class ActiviteController extends Controller
         foreach ($activite->photo as $item) {
             if (File::exists(public_path($item->URL))) {
                 File::delete(public_path($item->URL));
-                // dd(public_path($item->URL));
             }
             $item->forceDelete();
         }

@@ -12,38 +12,23 @@ class PartenaireController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $partenaire = Partenaire:: all();
         return view('partenaires.index')->with('partenaire', $partenaire);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('partenaires.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request,[
-            'logo' =>'required',
-            'name' =>'required',
+            'logo' =>'required|mimes:jpg,png,jpeg|max:2048',
+            'name' =>'required|max:21',
             'url'  =>'required'
         ]);
 
@@ -60,45 +45,26 @@ class PartenaireController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Partenaire  $partenaire
-     * @return \Illuminate\Http\Response
-     */
     public function show( $id)
     {
         $partenaire = Partenaire::where('id', $id)->first();
         return view('partenaires.show')->with('partenaire',$partenaire);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Partenaire  $partenaire
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $partenaire = Partenaire::where('id', $id)->first();
         return view('partenaires.edit')->with('partenaire',$partenaire);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partenaire  $partenaire
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $partenaire = Partenaire::where('id', $id)->first();
         $this->validate($request,[
-            'name' =>'required',
-            'url'  =>'required'
+            'name' =>'required|max:21',
+            'url'  =>'required',
+            'logo' => 'mimes:jpg,png,jpeg|max:2048'
         ]);
-
 
         if ($request->has('logo')) {
             if (File::exists(public_path($partenaire->logo)))
@@ -119,12 +85,6 @@ class PartenaireController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Partenaire  $partenaire
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $partenaire = Partenaire::where('id', $id)->first();
